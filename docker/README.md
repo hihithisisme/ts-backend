@@ -44,6 +44,6 @@ This configuration allows for data persistence even when the docker container th
 To remove the named volume with the container, we can use `docker-compose down -v`.
 
 ### docker-compose.container.yml
-This file also uses volumes (not sure on the specific term). However, it appears that the volume used are tied to the container itself. When the docker container is removed via `docker-compose down`, and re-created using `docker-compose up`, the data commited before is not persisted. 
+This file also uses volumes (called host volumes). However, it appears that the volume used are tied to the container itself. When the docker container is removed via `docker-compose down`, and re-created using `docker-compose up`, the data commited before is not persisted. 
 
 This configuration would most be more preferred for databases used for purely testing purposes. 
