@@ -1,5 +1,4 @@
 import pg from 'pg';
-// require('dotenv').config();
 
 interface IpgConfig {
   user: string,
@@ -32,9 +31,11 @@ export async function execAndCommit(query: string, value: any[]): Promise<pg.Que
     const result = await client.query(query, value);
     await client.query('COMMIT');
     return result;
+
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;
+
   } finally {
     client.release();
   }

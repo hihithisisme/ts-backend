@@ -1,4 +1,4 @@
-import { execAndCommit } from './config/db/postgres/config';
+import { execAndCommit } from './config/db/postgres/postgres';
 
 (async () => {
   
