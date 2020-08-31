@@ -1,4 +1,5 @@
 import pg from 'pg';
+import { pool } from '../../../init';
 
 interface IpgConfig {
   user: string,
@@ -8,7 +9,7 @@ interface IpgConfig {
   port: number,
 }
 
-const pgConfig = {
+export const pgConfig = {
   user: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DATABASE,
@@ -16,26 +17,22 @@ const pgConfig = {
   port: process.env.PG_PORT,
 } as unknown as IpgConfig;
 
-const pool = new pg.Pool(pgConfig);
-
-async function getClient(): Promise<pg.PoolClient> {
+async function getClient(pool: pg.Pool): Promise<pg.PoolClient> {
   const client = await pool.connect();
   return client;
 }
 
 export async function execAndCommit(query: string, value: any[]): Promise<pg.QueryResult> {
-  const client = await getClient();
+  const client = await getClient(pool);
 
   try {
     await client.query('BEGIN');
     const result = await client.query(query, value);
     await client.query('COMMIT');
     return result;
-
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;
-
   } finally {
     client.release();
   }
