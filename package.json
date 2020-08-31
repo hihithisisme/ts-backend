@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node dist/index.js",
+    "start": "npm run build && node -r dotenv/config dist/index.js",
     "build": "rimraf ./dist && tsc",
     "pg:build": "docker-compose -f docker/docker-compose.container.yml up -d",
     "pg:stop": "docker-compose -f docker/docker-compose.container.yml stop",
@@ -15,9 +15,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/node": "^14.6.0",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
+    "dotenv": "^8.2.0",
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
@@ -25,5 +27,9 @@
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@types/pg": "^7.14.4",
+    "pg": "^8.3.3"
   }
 }

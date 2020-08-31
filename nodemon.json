@@ -10,5 +10,5 @@
     "NODE_ENV": "local"
   },
   "ext": "js json ts",
-  "exec": "ts-node ./src/index.ts"
+  "exec": "ts-node -r dotenv/config ./src/index.ts"
 }
