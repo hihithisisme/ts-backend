@@ -14,9 +14,10 @@ export async function createTables() {
   `, []);
 
   await createUserTable();
+  await createChannelTable();
   await createConvoTable();
   await createMessageTable();
-  await createChannelTable();
+  await createParticipantTable();
 }
 
 export async function createUserTable() {
@@ -26,9 +27,8 @@ export async function createUserTable() {
       handle varchar NULL,
       display_name varchar NOT NULL,
       "password" varchar NOT NULL,
-        channel_ids _uuid NULL,
-        CONSTRAINT users_pk PRIMARY KEY (id)
-        );
+      CONSTRAINT users_pk PRIMARY KEY (id)
+    );
   `, []);
 }
     
@@ -36,7 +36,9 @@ export async function createConvoTable() {
   await execAndCommit(`
     CREATE TABLE conversations (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
-      CONSTRAINT conversations_pk PRIMARY KEY (id)
+      channel_id uuid NOT NULL,
+      CONSTRAINT conversations_pk PRIMARY KEY (id),
+      CONSTRAINT conversations_fk FOREIGN KEY (channel_id) REFERENCES channels(id) ON UPDATE CASCADE ON DELETE RESTRICT
     );
   `, []);
 }
@@ -47,8 +49,19 @@ export async function createChannelTable() {
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
       description varchar NULL,
       pinned_messages_ids _uuid NULL,
-      conversation_ids _uuid NULL,
       CONSTRAINT channels_pk PRIMARY KEY (id)
+    );
+  `, []);
+}
+
+async function createParticipantTable() {
+  await execAndCommit(`
+    CREATE TABLE participants (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      channel_id uuid NOT NULL,
+      user_id uuid NOT NULL,
+      CONSTRAINT participants_channels_fk FOREIGN KEY (channel_id) REFERENCES channels(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+      CONSTRAINT participants_users_fk FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE RESTRICT
     );
   `, []);
 }
