@@ -1,0 +1,74 @@
+import { execAndCommit } from '../config/db/postgres/postgres'
+
+export async function createTables() {
+  await execAndCommit(`
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+    CREATE OR REPLACE FUNCTION update_updated_column()
+          RETURNS TRIGGER AS '
+    BEGIN
+      NEW.updated = NOW();
+      RETURN NEW;
+    END;
+  ' LANGUAGE 'plpgsql';
+  `, []);
+
+  await createUserTable();
+  await createConvoTable();
+  await createMessageTable();
+  await createChannelTable();
+}
+
+export async function createUserTable() {
+  await execAndCommit(`
+    CREATE TABLE users (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      handle varchar NULL,
+      display_name varchar NOT NULL,
+      "password" varchar NOT NULL,
+        channel_ids _uuid NULL,
+        CONSTRAINT users_pk PRIMARY KEY (id)
+        );
+  `, []);
+}
+    
+export async function createConvoTable() {
+  await execAndCommit(`
+    CREATE TABLE conversations (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      CONSTRAINT conversations_pk PRIMARY KEY (id)
+    );
+  `, []);
+}
+
+export async function createChannelTable() {
+  await execAndCommit(`
+    CREATE TABLE channels (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      description varchar NULL,
+      pinned_messages_ids _uuid NULL,
+      conversation_ids _uuid NULL,
+      CONSTRAINT channels_pk PRIMARY KEY (id)
+    );
+  `, []);
+}
+
+export async function createMessageTable() {
+  await execAndCommit(`
+    CREATE TABLE messages (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      conversation_id uuid NOT NULL,
+      from_id uuid NOT NULL,
+      message varchar NOT NULL,
+      created timestamptz NULL DEFAULT now(),
+      updated timestamptz NULL DEFAULT now(),
+      CONSTRAINT messages_pk PRIMARY KEY (id),
+      CONSTRAINT messages_fk FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+      CONSTRAINT messages_users_fk FOREIGN KEY (from_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE RESTRICT
+    );
+    CREATE TRIGGER update_updated_messages
+      BEFORE UPDATE
+        ON messages FOR EACH ROW 
+      EXECUTE PROCEDURE update_updated_column();
+  `, []);
+}
