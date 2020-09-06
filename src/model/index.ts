@@ -8,12 +8,12 @@ export interface user {
 export interface channel {
   id: string
   description: string
-  pinned_message_ids: string[]
+  pinnedMessageIds: string[]  // associated to messages
 }
 
 export interface conversation {
   id: string
-  channel_id: string
+  channelId: string     // fk to channel
 }
 
 export interface message {
