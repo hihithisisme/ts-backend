@@ -57,7 +57,6 @@ export async function createChannelTable() {
 async function createParticipantTable() {
   await db.execAndCommit(`
     CREATE TABLE participants (
-      id uuid NOT NULL DEFAULT uuid_generate_v4(),
       channel_id uuid NOT NULL,
       user_id uuid NOT NULL,
       CONSTRAINT participants_channels_fk FOREIGN KEY (channel_id) REFERENCES channels(id) ON UPDATE CASCADE ON DELETE RESTRICT,
