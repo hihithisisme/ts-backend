@@ -1,7 +1,7 @@
-import { execAndCommit } from '../config/db/postgres/postgres'
+import { db } from '../../../init'
 
 export async function dropTables() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     DROP TABLE IF EXISTS messages;
     DROP TABLE IF EXISTS conversations;
     DROP TABLE IF EXISTS participants;

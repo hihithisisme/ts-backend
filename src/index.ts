@@ -1,7 +1,6 @@
 require('./init');
 import express from 'express';
-import { createTables } from './migrations/create_tables'
-import { dropTables } from './migrations/drop_tables';
+import { createTables, dropTables } from './config/db/migrations'
 
 const app = express();
 const port = process.env.EXPRESS_PORT || 3000;

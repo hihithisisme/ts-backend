@@ -1,7 +1,7 @@
-import { execAndCommit } from '../config/db/postgres/postgres'
+import { db } from '../../../init';
 
 export async function createTables() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
     CREATE OR REPLACE FUNCTION update_updated_column()
@@ -21,7 +21,7 @@ export async function createTables() {
 }
 
 export async function createUserTable() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     CREATE TABLE users (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
       handle varchar NULL,
@@ -33,7 +33,7 @@ export async function createUserTable() {
 }
     
 export async function createConvoTable() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     CREATE TABLE conversations (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
       channel_id uuid NOT NULL,
@@ -44,7 +44,7 @@ export async function createConvoTable() {
 }
 
 export async function createChannelTable() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     CREATE TABLE channels (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
       description varchar NULL,
@@ -55,7 +55,7 @@ export async function createChannelTable() {
 }
 
 async function createParticipantTable() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     CREATE TABLE participants (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
       channel_id uuid NOT NULL,
@@ -67,7 +67,7 @@ async function createParticipantTable() {
 }
 
 export async function createMessageTable() {
-  await execAndCommit(`
+  await db.execAndCommit(`
     CREATE TABLE messages (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
       conversation_id uuid NOT NULL,

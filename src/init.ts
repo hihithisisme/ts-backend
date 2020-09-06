@@ -1,4 +1,11 @@
-import pg from 'pg';
-import { pgConfig } from './config/db/postgres/postgres';
+import { IpgConfig, postgresDB } from './config/db/db';
 
-export const pool = new pg.Pool(pgConfig);
+const pgConfig = {
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  database: process.env.PG_DATABASE,
+  host: process.env.PG_HOST,
+  port: process.env.PG_PORT,
+} as unknown as IpgConfig;
+
+export const db = new postgresDB(pgConfig);
