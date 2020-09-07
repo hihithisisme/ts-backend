@@ -8,24 +8,24 @@ export interface user {
 export interface channel {
   id: string
   description: string
-  pinnedMessageIds: string[]  // associated to messages
+  pinnedMessageIds: string[] // associated to messages
 }
 
 export interface conversation {
   id: string
-  channelId: string     // fk to channel
+  channelId: string // fk to channel
 }
 
 export interface message {
   id: string
-  conversationId: string  // fk to converstaiton
-  fromId: string          // fk to user
+  conversationId: string // fk to converstaiton
+  fromId: string // fk to user
   message: string
   created: Date
   updated: Date
 }
 
 export interface participant {
-  channelId: string     // fk to channel
-  userId: string        // fk to user
+  channelId: string // fk to channel
+  userId: string // fk to user
 }

@@ -31,7 +31,7 @@ export async function createUserTable() {
     );
   `, []);
 }
-    
+
 export async function createConvoTable() {
   await db.execAndCommit(`
     CREATE TABLE conversations (

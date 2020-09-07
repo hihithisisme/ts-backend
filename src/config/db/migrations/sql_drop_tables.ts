@@ -1,4 +1,4 @@
-import { db } from '../../../init'
+import { db } from '../../../init';
 
 export async function dropTables() {
   await db.execAndCommit(`
