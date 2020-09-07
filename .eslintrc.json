@@ -18,6 +18,11 @@
         "no-console": 1,
         "indent": ["error", 2],
         "semi": ["error", "always"],
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "no-use-before-define": "warn",
+        "import/first": "off",
+        "import/order": "error"
     }
 }

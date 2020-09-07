@@ -9,7 +9,7 @@
     "pg:build": "docker-compose -f docker/docker-compose.container.yml up -d",
     "pg:stop": "docker-compose -f docker/docker-compose.container.yml stop",
     "dev": "nodemon",
-    "fix-lint": "eslint . --ext .ts --fix"
+    "fix-lint": "eslint . --ext .ts"
   },
   "keywords": [],
   "author": "",
