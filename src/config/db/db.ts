@@ -1,9 +1,9 @@
-export abstract class DB {
+export abstract class db {
   abstract async connect(config: object): Promise<void>;
-
+  
   constructor(config: object) {
     this.connect(config);
   }
 }
 
-export { IpgConfig, PostgresDB } from './postgres';
+export { IpgConfig, postgresDB } from './postgres';

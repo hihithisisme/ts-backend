@@ -1,14 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import { PostgresDB, IpgConfig } from './config/db/db';
-import {
-  UserController,
-} from './controller';
-import {
-  UserService,
-} from './service';
-import {
-  UserRepository,
-} from './repository';
+import { IpgConfig, postgresDB } from './config/db/db';
 
 const pgConfig = {
   user: process.env.PG_USER,
@@ -18,8 +8,4 @@ const pgConfig = {
   port: process.env.PG_PORT,
 } as unknown as IpgConfig;
 
-export const db = new PostgresDB(pgConfig);
-
-export const userRepo = new UserRepository(db);
-export const userService = new UserService(userRepo);
-export const userController = new UserController(userService);
+export const db = new postgresDB(pgConfig);

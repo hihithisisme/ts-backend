@@ -1,5 +1,5 @@
 import pg from 'pg';
-import { DB } from './db';
+import { db } from './db';
 
 export interface IpgConfig {
   user: string,
@@ -9,9 +9,8 @@ export interface IpgConfig {
   port: number,
 }
 
-export class PostgresDB extends DB {
+export class postgresDB extends db {
   config: IpgConfig;
-
   // ! is the non-null assertion operator to stop TS from complaining.
   pool!: pg.Pool;
 
@@ -40,7 +39,7 @@ export class PostgresDB extends DB {
       client.release();
     }
   }
-
+  
   private async getClient(): Promise<pg.PoolClient> {
     try {
       const client = await this.pool.connect();
@@ -54,5 +53,5 @@ export class PostgresDB extends DB {
   constructor(config: IpgConfig) {
     super(config);
     this.config = config;
-  }
+  };
 }
