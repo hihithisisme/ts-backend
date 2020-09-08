@@ -1,5 +1,7 @@
 import { db } from '../../../init';
 
+dropTables();
+
 export async function dropTables() {
   await db.execAndCommit(`
     DROP TABLE IF EXISTS messages;

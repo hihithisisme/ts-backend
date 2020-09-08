@@ -7,6 +7,8 @@
     "start": "npm run build && node -r dotenv/config dist/index.js",
     "build": "rimraf ./dist && tsc",
     "pg:build": "docker-compose -f docker/docker-compose.container.yml up -d",
+    "pg:create-tables": "ts-node -r dotenv/config src/config/db/migrations/sql_create_tables",
+    "pg:drop-tables": "ts-node -r dotenv/config src/config/db/migrations/sql_drop_tables",
     "pg:stop": "docker-compose -f docker/docker-compose.container.yml stop",
     "dev": "nodemon",
     "fix-lint": "eslint . --ext .ts"

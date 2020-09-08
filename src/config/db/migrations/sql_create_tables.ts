@@ -1,5 +1,7 @@
 import { db } from '../../../init';
 
+createTables();
+
 export async function createTables() {
   await db.execAndCommit(`
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
