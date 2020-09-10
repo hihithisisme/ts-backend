@@ -22,3 +22,6 @@ data/
 
 # eslint
 .eslintcache
+
+# coverage from jest
+coverage/
