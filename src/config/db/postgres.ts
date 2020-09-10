@@ -24,6 +24,7 @@ export class PostgresDB extends DB {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async execAndCommit(query: string, value: any []): Promise<pg.QueryResult> {
     const client = await this.getClient();
     try {

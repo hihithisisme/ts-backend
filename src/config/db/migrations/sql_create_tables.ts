@@ -2,7 +2,7 @@ import { db } from '../../../init';
 
 createTables();
 
-export async function createTables() {
+export async function createTables(): Promise<void> {
   await db.execAndCommit(`
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -22,7 +22,7 @@ export async function createTables() {
   await createParticipantTable();
 }
 
-export async function createUserTable() {
+export async function createUserTable(): Promise<void> {
   await db.execAndCommit(`
     CREATE TABLE users (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -34,7 +34,7 @@ export async function createUserTable() {
   `, []);
 }
 
-export async function createConvoTable() {
+export async function createConvoTable(): Promise<void> {
   await db.execAndCommit(`
     CREATE TABLE conversations (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -45,7 +45,7 @@ export async function createConvoTable() {
   `, []);
 }
 
-export async function createChannelTable() {
+export async function createChannelTable(): Promise<void> {
   await db.execAndCommit(`
     CREATE TABLE channels (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -56,7 +56,7 @@ export async function createChannelTable() {
   `, []);
 }
 
-async function createParticipantTable() {
+async function createParticipantTable(): Promise<void> {
   await db.execAndCommit(`
     CREATE TABLE participants (
       channel_id uuid NOT NULL,
@@ -67,7 +67,7 @@ async function createParticipantTable() {
   `, []);
 }
 
-export async function createMessageTable() {
+export async function createMessageTable(): Promise<void> {
   await db.execAndCommit(`
     CREATE TABLE messages (
       id uuid NOT NULL DEFAULT uuid_generate_v4(),

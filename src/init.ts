@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { PostgresDB, IpgConfig } from './config/db/db';
+import { PostgresDB, IpgConfig } from './config/db/postgres';
 import {
   UserController,
 } from './controller';
