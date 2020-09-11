@@ -1,48 +1,28 @@
-# TS-Backend
+# ts-backend
 
 This is an attempt at making a typescript template for rapid prototyping. This is mostly intended for personal projects and thus the scope might be rather restricted to a backend HTTP API server because that's the preferrence of the author. 
 
-## Development Tools
+## Development
 
-### dotenv
-One of the most popular dev tools is `dotenv`. This library is used to temporarily set up environment variables for your project on your local machine. These environment variables are typically sensitive information or variables that will be changed from device to device. 
+This project is made with long-term development in mind. As such it has a suite of dev tools in which you can use to make your process easier. You can find short write-ups of these tools employed in `dev-tools.md`. 
 
-In this repository, we are using the preloading implementation of `dotenv`, which require us to call our script commands with `-r dotenv/config`. 
+## Quickstart
 
-Reference: https://github.com/motdotla/dotenv
+### Mock Database using Docker
+`npm install`
+`npm run pg:build` (This step requires Docker to be installed. Otherwise you will have to set up a postgres database instance yourself and configure the `.env` yourself.)
+`npm run pg:create-tables`
 
-### Docker
-We can use docker to set up a temporary database on our local machines for testing purposes. This reduces the need to download the database driver on your local machine. In this project, we are using postgresql as our database. 
+### Environment variables
+Copy `.env.example` into `.env`. The configuration in `.env.example` should suffice for local development and testing while using the Docker containers. 
 
-We can run this to set up the docker container. 
-```npm run pg:create```
-We can run this to stop the docker container. 
-```npm run pg:stop```
-Of course, this would require you to have docker already install on your local machine. 
-More details on how to use docker in the folder `docker/`.
-
-### Nodemon
-We can run the following for live reload of code. 
-```npm run dev```
-Related files: `nodemon.json`
-
-### Linter
-For a more cleaner codebase, we are using ESLint to clean up the code. The following command will attempt to fix the code according to the linter rules.
-```npm run fix-lint```
-Related files: `.eslintrc.json`, `.eslintignore`
-
-Reference: https://khalilstemmler.com/blogs/typescript/eslint-for-typescript/
-
-## Build
-
-We can run the following to create our `.js` files in `dist/`.
-
-```npm run build``` 
+### Live reload
+`npm run dev`
 
 ## Considerations
 
 There are some tools/concepts that may be considered, but has not been/will not be implemented:
 
 - Prettier (for live linting) https://khalilstemmler.com/blogs/tooling/prettier/
-- Docker (dockerized database)
+- Editorconfig
 - Source map (under `tsconfig.json`)
