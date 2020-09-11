@@ -5,5 +5,3 @@ export abstract class DB {
     this.connect(config);
   }
 }
-
-export { IpgConfig, PostgresDB } from './postgres';

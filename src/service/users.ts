@@ -1,7 +1,8 @@
-import { UserRepository } from "../repository";
+import { UserRepository } from '../repository';
 
 export class UserService {
-  private repo: UserRepository
+  private repo: UserRepository;
+
   constructor(repo: UserRepository) {
     this.repo = repo;
   }

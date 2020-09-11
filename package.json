@@ -6,12 +6,14 @@
   "scripts": {
     "start": "npm run build && node -r dotenv/config dist/index.js",
     "build": "rimraf ./dist && tsc",
+    "test": "cross-env NODE_ENV=test jest --verbose --passWithNoTests",
     "pg:build": "docker-compose -f docker/docker-compose.container.yml up -d",
     "pg:create-tables": "ts-node -r dotenv/config src/config/db/migrations/sql_create_tables",
     "pg:drop-tables": "ts-node -r dotenv/config src/config/db/migrations/sql_drop_tables",
     "pg:stop": "docker-compose -f docker/docker-compose.container.yml stop",
     "dev": "nodemon",
-    "fix-lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix"
   },
   "keywords": [],
   "author": "",
@@ -19,14 +21,26 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/node": "^14.6.0",
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^3.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-airbnb-typescript": "^10.0.0",
+    "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^24.0.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "jest-extended": "^0.11.5",
+    "lint-staged": "^10.3.0",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
+    "ts-jest": "^26.3.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   },
@@ -35,5 +49,13 @@
     "@types/pg": "^7.14.4",
     "express": "^4.17.1",
     "pg": "^8.3.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": "npm run lint"
   }
 }
