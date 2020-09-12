@@ -11,6 +11,8 @@
     "pg:create-tables": "ts-node -r dotenv/config src/config/db/migrations/sql_create_tables",
     "pg:drop-tables": "ts-node -r dotenv/config src/config/db/migrations/sql_drop_tables",
     "pg:stop": "docker-compose -f docker/docker-compose.container.yml stop",
+    "mongo:build": "docker-compose -f docker/docker-compose-mongo.container.yml up -d",
+    "mongo:stop": "docker-compose -f docker/docker-compose-mongo.container.yml stop",
     "dev": "nodemon",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix"
